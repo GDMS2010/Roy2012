@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d71b0934d0aa94d83356a5d87eef25, type: 3}
   m_Name: Small Health
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 4790409762512851776, guid: f7ce94dc1864fd142937853c10d7fc9b, type: 3}
   itemtype: 0
   description: 
   restoreHealthValue: 5
