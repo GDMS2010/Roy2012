@@ -29,11 +29,18 @@ public class Stats : MonoBehaviour
     public int getBrain() { return brain; }
     public int getVigor() { return vigor; }
 
+    public int health;
+    public int maxHealth;
+
+    public string getCharacterName => characterName;
+
     private void Awake()
     {
         //Debug
         nimbleness = Random.Range(1, 20);
         GameObject.Find("TurnOrder").GetComponent<TurnOrder>().testList.Add(this.gameObject);
+        maxHealth = vigor * 3;
+        health = maxHealth;
     }
 
     public Sprite GetSprite()
