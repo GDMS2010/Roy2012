@@ -97,6 +97,11 @@ public class TurnOrder : MonoBehaviour
         }
     }
 
+    public GameObject GetCurrent()
+    {
+        return objQueue[index];
+    }
+
     //Debug
     public void Dead_test(int id)
     {
