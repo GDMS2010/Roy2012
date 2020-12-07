@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34448c327527d7c488ed224dff405bd2, type: 3}
   m_Name: Sword 1
   m_EditorClassIdentifier: 
-  prefab: {fileID: 9140355187426753609, guid: 4facaeebb5629ef4aa13d5e763743ebc, type: 3}
+  ID: 2
+  uiDisplay: {fileID: 21300000, guid: f8265e8f3b7eeff449772229822a99c1, type: 3}
   itemtype: 1
   description: 
-  AtkBonus: 15
-  DefBonus: 0
+  buffs:
+  - attributes: 1
+    value: 0
+    min: 20
+    max: 30
+  - attributes: 2
+    value: 0
+    min: 20
+    max: 30

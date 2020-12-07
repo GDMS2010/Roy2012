@@ -8,10 +8,10 @@ public class TestPlayer : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        var item = other.GetComponent<Item>();
+        var item = other.GetComponent<WorldItem>();
         if (item)
         {
-            inventory.AddItem(item.item, 1);
+            inventory.AddItem(new Item(item.item), 1);
             Destroy(other.gameObject);
         }
     }
@@ -29,6 +29,6 @@ public class TestPlayer : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        inventory.Container.Clear();
+        inventory.Container.Items = new InventorySlot[36];
     }
 }
