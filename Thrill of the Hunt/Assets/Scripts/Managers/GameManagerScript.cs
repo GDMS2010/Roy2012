@@ -11,6 +11,7 @@ public class GameManagerScript : MonoBehaviour
     static BoardGenerator board;
     static int curCharActions = 0;
     static GameManagerScript instance;
+    GameObject inventoryUICanvas;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,6 +22,9 @@ public class GameManagerScript : MonoBehaviour
         board = FindObjectOfType<BoardGenerator>();
         if (!board) Debug.LogError("Scene has a game manager script but no board");
         instance = this;
+        inventoryUICanvas = GameObject.FindGameObjectWithTag("InventoryUICanvas");
+        if (!inventoryUICanvas) Debug.LogError("Scene has a game manager but no inventory UI");
+        else inventoryUICanvas.SetActive(false);//defaults inventory to closed
     }
 
     private void Start()
@@ -70,6 +74,11 @@ public class GameManagerScript : MonoBehaviour
         curCharActions--;
         if (curCharActions <= 0)
             instance.NextTurn();
+    }
+
+    public static void ToggleInventory()
+    {
+        instance.inventoryUICanvas.SetActive(!instance.inventoryUICanvas.activeSelf);
     }
     
 }

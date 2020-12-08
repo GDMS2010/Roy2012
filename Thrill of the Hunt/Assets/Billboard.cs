@@ -7,6 +7,6 @@ public class Billboard : MonoBehaviour
     public Camera _Camera;
     private void LateUpdate()
     {
-        transform.forward = _Camera.transform.forward;
+        //transform.forward = _Camera.transform.forward;
     }
 }
