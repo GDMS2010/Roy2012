@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ChrisExample.unity
     guid: 23fe58a9bd2cf0445962c41c26573a01
+  - enabled: 1
+    path: Assets/Scenes/DiningRoom.unity
+    guid: e02441f99083cb346ab2bd378e956fd0
   m_configObjects: {}
