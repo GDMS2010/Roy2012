@@ -87,8 +87,8 @@ public class Stats : MonoBehaviour
         {
             _isAlive = false;
             onDie?.Invoke();
-            gameObject.SetActive(false);
-            
+            FindObjectOfType<GameManagerScript>().GetTurnOrder().removeCharacter(this.gameObject);
+            gameObject.SetActive(false);        
         }
         else
             onHurt?.Invoke();

@@ -641,6 +641,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7640523519966206818, guid: ee244a269911c484c8d8e73f6fe58456, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5240b2c958fd26144a2cda2eb79580ef, type: 2}
     - target: {fileID: 7640523519966206840, guid: ee244a269911c484c8d8e73f6fe58456, type: 3}
       propertyPath: m_Name
       value: Crusader
@@ -1960,7 +1964,7 @@ GameObject:
   - component: {fileID: 884149346}
   m_Layer: 0
   m_Name: Wolf
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

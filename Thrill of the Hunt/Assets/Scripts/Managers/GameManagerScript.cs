@@ -80,5 +80,7 @@ public class GameManagerScript : MonoBehaviour
     {
         instance.inventoryUICanvas.SetActive(!instance.inventoryUICanvas.activeSelf);
     }
+
+    public TurnOrder GetTurnOrder() { return turnOrder; }
     
 }
