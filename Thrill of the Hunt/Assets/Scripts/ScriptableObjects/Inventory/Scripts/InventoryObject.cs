@@ -39,9 +39,9 @@ public class InventoryObject : ScriptableObject
     {
         for (int i = 0; i < Container.Items.Length; i++)
         {
-            if(Container.Items[i].ID <= -1)
+            if (Container.Items[i].ID <= -1)
             {
-                Container.Items[i].UpdateSlot(_item.ID,_item, amount);
+                Container.Items[i].UpdateSlot(_item.ID, _item, amount);
                 return Container.Items[i];
             }
         }
@@ -53,14 +53,14 @@ public class InventoryObject : ScriptableObject
     {
         InventorySlot temp = new InventorySlot(item2.ID, item2.item, item2.amount);
         item2.UpdateSlot(item1.ID, item1.item, item1.amount);
-        item1.UpdateSlot(temp.ID,temp.item,temp.amount);
+        item1.UpdateSlot(temp.ID, temp.item, temp.amount);
     }
 
     public void RemoveItem(Item _item)
     {
         for (int i = 0; i < Container.Items.Length; i++)
         {
-            if(Container.Items[i].item == _item)
+            if (Container.Items[i].item == _item)
             {
                 Container.Items[i].UpdateSlot(-1, null, 0);
             }
@@ -105,7 +105,7 @@ public class InventoryObject : ScriptableObject
     [ContextMenu("Clear")]
     public void Clear()
     {
-        Container = new Inventory();
+        Container.Clear();
     }
 }
 
@@ -113,11 +113,21 @@ public class InventoryObject : ScriptableObject
 public class Inventory
 {
     public InventorySlot[] Items = new InventorySlot[36];
+
+    public void Clear()
+    {
+        for (int i = 0; i < Items.Length; i++)
+        {
+            Items[i].UpdateSlot(-1, new Item(), 0);
+        }
+    }
 }
 
 [System.Serializable]
 public class InventorySlot
 {
+    public Itemtype[] AllowedItems = new Itemtype[0];
+    public UserInterface parent;
     public int ID = -1;
     public Item item;
     public int amount;
@@ -144,5 +154,22 @@ public class InventorySlot
     public void AddAmount(int value)
     {
         amount += value;
+    }
+
+    public bool CanPlaceInSlot(ItemObject _item)
+    {
+        if (AllowedItems.Length <= 0)
+        {
+            return true;
+        }
+
+        for (int i = 0; i < AllowedItems.Length; i++)
+        {
+            if (_item.itemtype == AllowedItems[i])
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
