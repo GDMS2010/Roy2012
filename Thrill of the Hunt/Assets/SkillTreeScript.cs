@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GridMovementController))]
 public class SkillTreeScript : MonoBehaviour
 {
     public enum SkillType
@@ -24,17 +25,13 @@ public class SkillTreeScript : MonoBehaviour
     [SerializeField] protected Sprite basicAttackImage;
     [SerializeField] protected Sprite specialMove1Image;
 
-    GridMovementController m_moveControl;
-    BoardGenerator.Cell cell;
+    protected GridMovementController m_moveControl;
+    protected Stats stats;
 
     private void Awake()
     {
-        m_moveControl = GetComponent<GridMovementController>();
-        ActionScript moveAction = gameObject.AddComponent(typeof(ActionScript)) as ActionScript;
-        moveAction.action = new UnityEngine.Events.UnityEvent();
-        moveAction.action.AddListener(Move);
-        moveAction.actionImage = moveActionImage;
-        skills.Add(moveAction);
+        Setup();
+        
     }
     void Start()
     {
@@ -52,29 +49,38 @@ public class SkillTreeScript : MonoBehaviour
         numActions = maxActions;
         numMoves = maxMoves;
     }
-
-    void Move()
+    void MoveClick()
+    {
+        Clicker clicker = FindObjectOfType<Clicker>();
+        BoardGenerator.Cell cell = m_moveControl.currentCell;
+        clicker.setupClickBoard(cell, stats.getSpeed, Clicker.TargetType.Empty, Move);
+    }
+    int Move(ClickerTile tile)
     {
         if (numMoves > 0)
         {
-            GameManagerScript.getBoard().MoveToCell(new Vector2(m_moveControl.currentCell.index.x - 1, m_moveControl.currentCell.index.y), gameObject, m_moveControl);
+            GameManagerScript.getBoard().MoveToCell(tile.gmc.currentCell.index, gameObject, m_moveControl);
             numMoves--;
             GameManagerScript.SubtractAction();
         }
-    }
 
-    void Move(Vector2 pos)
-    {
-        if (numMoves > 0)
+        else if (numActions>0)
         {
-            GameManagerScript.getBoard().MoveToCell(pos, gameObject, m_moveControl);
-            numMoves--;
+            GameManagerScript.getBoard().MoveToCell(tile.gmc.currentCell.index, gameObject, m_moveControl);
+            numActions--;
             GameManagerScript.SubtractAction();
         }
+        return 0;
     }
 
-    void basicAttack()
+    protected void Setup()
     {
-
+        m_moveControl = GetComponent<GridMovementController>();
+        stats = GetComponent<Stats>();
+        ActionScript moveAction = gameObject.AddComponent(typeof(ActionScript)) as ActionScript;
+        moveAction.action = new UnityEngine.Events.UnityEvent();
+        moveAction.action.AddListener(MoveClick);
+        moveAction.actionImage = moveActionImage;
+        skills.Add(moveAction);
     }
 }

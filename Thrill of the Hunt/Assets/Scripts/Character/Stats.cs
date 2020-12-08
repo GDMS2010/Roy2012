@@ -11,6 +11,7 @@ public class Stats : MonoBehaviour
     public int currHealth;
     public int maxHealth;
     [SerializeField] int damage;
+    [SerializeField] int attackRange;
     [SerializeField] int moveSpeed;
     [SerializeField] int lv;
 
@@ -26,7 +27,7 @@ public class Stats : MonoBehaviour
     [SerializeField] GameObject loot;
     [SerializeField] int exp;
 
-    UnityEvent onHurt, onDie;
+    public UnityEvent onHurt, onDie;
 
     [Header("UI")]
     [SerializeField] Sprite Portrait;
@@ -36,6 +37,9 @@ public class Stats : MonoBehaviour
     public int getBrawn => brawn;
     public int getBrain => brain;
     public int getVigor => vigor;
+    public int getSpeed => moveSpeed;
+    public int getDamage => damage;
+    public int getAttackRange => attackRange;
 
     bool _isAlive = true;
 
@@ -82,10 +86,12 @@ public class Stats : MonoBehaviour
         if (currHealth <= 0)
         {
             _isAlive = false;
-            onDie.Invoke();
+            onDie?.Invoke();
+            gameObject.SetActive(false);
+            
         }
         else
-            onHurt.Invoke();
+            onHurt?.Invoke();
     }
 
     public void heal(int _amount)
@@ -100,25 +106,4 @@ public class Stats : MonoBehaviour
         return _isAlive;
     }
     #endregion
-
-    void Move()
-    {
-
-    }
-
-    void BasicAttack(GameObject Target)
-    {
-        Target.GetComponent<Stats>().hurt(damage, DamageType.Normal);
-    }
-
-    void Guard()
-    {
-
-    }
-
-    void UseAbility(int num)
-    {
-
-    }
-
 }

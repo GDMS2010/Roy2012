@@ -40,4 +40,9 @@ public class GridMovementController : MonoBehaviour
 
         //Move the player there (over time/square by square/teleport?)
     }
+
+    public void OnDie()
+    {
+        currentCell.occupiedObject = null;
+    }
 }
