@@ -41,6 +41,11 @@ public class Item
     public string Name;
     public int ID;
     public ItemBuff[] buffs;
+    public Item()
+    {
+        Name = "";
+        ID = -1;
+    }
     public Item(ItemObject item)
     {
         Name = item.name;

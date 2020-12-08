@@ -6,6 +6,8 @@ public class TestPlayer : MonoBehaviour
 {
     public InventoryObject inventory;
 
+    public MouseItem mouseItem = new MouseItem();
+
     public void OnTriggerEnter(Collider other)
     {
         var item = other.GetComponent<WorldItem>();
