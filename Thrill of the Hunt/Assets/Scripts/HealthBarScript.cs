@@ -19,7 +19,7 @@ public class HealthBarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        amount.text = stat.health + "/" + stat.maxHealth;
-        fill.fillAmount = (float)stat.health / (float)stat.maxHealth;
+        amount.text = stat.currHealth + "/" + stat.maxHealth;
+        fill.fillAmount = (float)stat.currHealth / (float)stat.maxHealth;
     }
 }

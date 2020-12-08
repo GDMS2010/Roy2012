@@ -155,4 +155,17 @@ public class BoardGenerator : MonoBehaviour
     {
         drawing = false;
     }
+    public bool getCellIndex(Vector3 position, ref Vector2 cellIndex)
+    {
+        for (int i = 0; i < cells.Count; i++)
+        {
+            if (position.x >= cells[i].startX && position.x <= cells[i].endX)
+                if (position.z >= cells[i].startY && position.z <= cells[i].endY)
+                {
+                    cellIndex = cells[i].index;
+                    return true;
+                }
+        }
+        return false;
+    }
 }

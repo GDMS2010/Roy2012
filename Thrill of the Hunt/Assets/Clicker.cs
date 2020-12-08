@@ -1,0 +1,26 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Clicker : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector2 index = new Vector2();
+            Vector3 position = new Vector3();
+            Debug.Log(
+            GameManagerScript.getBoard().getCellIndex(position, ref index)
+            );
+            Debug.Log(index);
+        }
+    }
+}
