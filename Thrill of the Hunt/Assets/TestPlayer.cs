@@ -25,15 +25,15 @@ public class TestPlayer : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            inventory.Save();
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            inventory.Load();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    inventory.Save();
+        //}
+        //
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    inventory.Load();
+        //}
 
         float hAxis = Input.GetAxis("Horizontal");
         float vAxis = Input.GetAxis("Forward");

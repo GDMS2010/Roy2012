@@ -19,8 +19,8 @@ public class DebugScript : MonoBehaviour
 
     public void DealDamage()
     {
-        managerInstance.getCurCharacter().health -= 10;
-        if (managerInstance.getCurCharacter().health <= 0)
+        managerInstance.getCurCharacter().hurt(10, Stats.DamageType.True);
+        if (!managerInstance.getCurCharacter().isAlive())
         {
             Destroy(managerInstance.getCurCharacter().gameObject);
         }

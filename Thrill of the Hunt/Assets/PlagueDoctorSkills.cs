@@ -5,24 +5,26 @@ using UnityEngine;
 public class PlagueDoctorSkills : SkillTreeScript
 {
     [SerializeField]
-    Sprite moveActionImage;
+    Sprite moveActionImagePD;
     [SerializeField]
     Sprite healImage;
 
     Stats characterStats;
 
-    GridMovementController m_moveControl;
+    //GridMovementController m_moveControl;
     // Start is called before the first frame update
     void Awake()
     {
         numMoves = 1;
         numActions = 0;
+        maxActions = numActions;
+        maxMoves = numMoves;
         m_moveControl = GetComponent<GridMovementController>();
 
         ActionScript moveAction = gameObject.AddComponent(typeof(ActionScript)) as ActionScript;
         moveAction.action = new UnityEngine.Events.UnityEvent();
         moveAction.action.AddListener(Move);
-        moveAction.actionImage = moveActionImage;
+        moveAction.actionImage = moveActionImagePD;
         skills.Add(moveAction);
 
         ActionScript healAction = gameObject.AddComponent(typeof(ActionScript)) as ActionScript;
@@ -53,8 +55,8 @@ public class PlagueDoctorSkills : SkillTreeScript
     void Heal()
     {
         //only heals self for sprint 2, make it so it can heal on a target later
-        characterStats.health += 10;
-        if (characterStats.health > characterStats.maxHealth)
-            characterStats.health = characterStats.maxHealth;
+        characterStats.currHealth += 10;
+        if (characterStats.currHealth > characterStats.maxHealth)
+            characterStats.currHealth = characterStats.maxHealth;
     }
 }

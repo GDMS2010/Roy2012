@@ -10,6 +10,7 @@ public class BoardGenerator : MonoBehaviour
     {
         public float startX, startY, endX, endY, width, height;
         public Vector2 index;
+        public GameObject occupiedObject;
         public Cell(float x, float y, float eX, float eY)
         {
             startX = x;
@@ -90,32 +91,38 @@ public class BoardGenerator : MonoBehaviour
     public void MoveToCell(Vector2 cellIndex, GameObject obj, GridMovementController moveController)
     {
         Cell target = isValidCell(cellIndex);
+        bool isTile = obj.GetComponent<ClickerTile>();
         if (target != null)
         {
+            if(!isTile) moveController.currentCell.occupiedObject = null;
             obj.transform.position = new Vector3(transform.position.x + target.startX + (target.width / 2) - width / 2,
                                     obj.transform.position.y,
                                     transform.position.z + target.startY + (target.height / 2) - height / 2);//position = half the cell width + parent padding (transform.x - this width / 2)
             moveController.currentCell = target;
+            if(!isTile) target.occupiedObject = obj;
         }
     }
 
     public Cell SnapObject(Transform objTransform)
     {
+        bool isTile = objTransform.GetComponent<ClickerTile>();
         //go through all the cells and find where object is. this can be optimized later
         for (int i = 0; i < cells.Count; i++)
         {
-            if (CheckBounds(objTransform, cells[i]))
+            if (CheckBounds(objTransform.position, cells[i]))
             {
                 objTransform.position = new Vector3(transform.position.x + cells[i].startX + (cells[i].width / 2) - width / 2,
                                                     objTransform.position.y,
                                                     transform.position.z + cells[i].startY + (cells[i].height / 2) - height / 2);//position = half the cell width + parent padding (transform.x - this width / 2)
+
+                if (!isTile) cells[i].occupiedObject = objTransform.gameObject;
                 return cells[i];
             }
         }
         return null;
     }
 
-    Cell isValidCell(Vector2 index)
+    public Cell isValidCell(Vector2 index)
     {
         for (int i = 0; i < cells.Count; i++)
         {
@@ -125,7 +132,7 @@ public class BoardGenerator : MonoBehaviour
         return null;
     }
 
-    bool CheckBounds(Transform objTransform, Cell cell)
+    bool CheckBounds(Vector3 position, Cell cell)
     {
         float startX = transform.position.x + cell.startX - width / 2;
         float startY = transform.position.z + cell.startY - height / 2;
@@ -140,9 +147,9 @@ public class BoardGenerator : MonoBehaviour
         //Point 4 x1, y1
         Vector2 topRight = new Vector2((transform.position.x + cell.endX - width / 2), transform.position.z + cell.endY - height / 2);
 
-        if (objTransform.position.x >= startX && objTransform.position.x <= endX)
+        if (position.x >= startX && position.x <= endX)
         {
-            if (objTransform.position.z >= startY && objTransform.position.z <= endY)
+            if (position.z >= startY && position.z <= endY)
             {
                 Debug.Log("Object inside cell " + cell.startX + " " + cell.endX);
                 Debug.Log("Object inside cell " + cell.startY + " " + cell.endY);
@@ -154,5 +161,17 @@ public class BoardGenerator : MonoBehaviour
     private void OnDestroy()
     {
         drawing = false;
+    }
+    public bool getCellIndex(Vector3 position, ref Vector2 cellIndex)
+    {
+        for (int i = 0; i < cells.Count; i++)
+        {
+            if (CheckBounds(position, cells[i]))
+            {
+                cellIndex = cells[i].index;
+                return true;
+            }
+        }
+        return false;
     }
 }

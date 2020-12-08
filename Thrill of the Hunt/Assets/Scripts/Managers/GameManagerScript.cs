@@ -46,8 +46,8 @@ public class GameManagerScript : MonoBehaviour
         if (!curCharacter) Debug.LogError("Failed to get stats component from current head of turn from TurnOrder script");
         uiScript.SetupUI(curCharacter);
         SkillTreeScript skills = curCharacter.GetComponent<SkillTreeScript>();
-        curCharActions = skills.numActions + skills.numMoves;
         skills.StartTurn();
+        curCharActions = skills.numActions + skills.numMoves;
         uiScript.SetupActions(skills);
         uiScript.SetTurnUI("Turn " + turnCounter);
     }
