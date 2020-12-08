@@ -16,7 +16,7 @@ public class PlagueDoctorSkills : SkillTreeScript
     void Awake()
     {
         numMoves = 1;
-        numActions = 0;
+        numActions = 1;
         maxActions = numActions;
         maxMoves = numMoves;
         m_moveControl = GetComponent<GridMovementController>();
@@ -54,9 +54,15 @@ public class PlagueDoctorSkills : SkillTreeScript
 
     void Heal()
     {
+        if (numActions > 0)
+        {
+            characterStats.currHealth += 10;
+            if (characterStats.currHealth > characterStats.maxHealth)
+                characterStats.currHealth = characterStats.maxHealth;
+            numMoves--;
+            GameManagerScript.SubtractAction();
+        }
         //only heals self for sprint 2, make it so it can heal on a target later
-        characterStats.currHealth += 10;
-        if (characterStats.currHealth > characterStats.maxHealth)
-            characterStats.currHealth = characterStats.maxHealth;
+
     }
 }
