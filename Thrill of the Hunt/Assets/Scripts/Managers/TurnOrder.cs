@@ -37,7 +37,7 @@ public class TurnOrder : MonoBehaviour
         var list = new List<KeyValuePair<GameObject, int>>();
         foreach (var item in objList)
         {
-            int val = item.GetComponent<Stats>().getNimBleness();
+            int val = item.GetComponent<Stats>().initiative;
             list.Add(new KeyValuePair<GameObject, int>(item, val));
         }
         //Sort by its value
