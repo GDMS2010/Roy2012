@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064e5ddc7508f2a4b8e2e859f0359b4a, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
-  ID: 5
   uiDisplay: {fileID: 21300000, guid: 19b3eb471bc949140ba77bc13a3407c8, type: 3}
+  stackable: 1
   itemtype: 2
   description: 
+  data:
+    Name: 
+    ID: 5
+    buffs: []
