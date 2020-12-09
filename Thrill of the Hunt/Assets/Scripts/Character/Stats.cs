@@ -27,7 +27,7 @@ public class Stats : MonoBehaviour
     [SerializeField] GameObject loot;
     [SerializeField] int exp;
 
-    public UnityEvent onHurt, onDie;
+    public UnityEvent onHurt, onDie, onHeal;
 
     [Header("UI")]
     [SerializeField] Sprite Portrait;
@@ -99,6 +99,7 @@ public class Stats : MonoBehaviour
         currHealth += _amount;
         if (currHealth > maxHealth)
             currHealth = maxHealth;
+        onHeal?.Invoke();
     }
 
     public bool isAlive()

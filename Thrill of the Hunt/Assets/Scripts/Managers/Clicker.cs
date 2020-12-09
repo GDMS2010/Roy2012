@@ -165,6 +165,8 @@ public class Clicker : MonoBehaviour
                                         temptile.TurnOn(ClickerTile.TileType.Attackable);
                                     else
                                         temptile.TurnOn(ClickerTile.TileType.Healable);
+                                else
+                                    temptile.TurnOn(ClickerTile.TileType.Range);
                             }
                             else if (cell.occupiedObject.tag == "Enemy")
                             {
@@ -173,6 +175,8 @@ public class Clicker : MonoBehaviour
                                         temptile.TurnOn(ClickerTile.TileType.Attackable);
                                     else
                                         temptile.TurnOn(ClickerTile.TileType.Healable);
+                                else
+                                    temptile.TurnOn(ClickerTile.TileType.Range);
                             }
                             else
                                 temptile.TurnOn(ClickerTile.TileType.Range);
@@ -265,7 +269,15 @@ public class Clicker : MonoBehaviour
 
     public void Clicked(ClickerTile tile)
     {
-        _func(tile);
+        if(tile.tileType!=ClickerTile.TileType.Range)
+        {
+            _func(tile);
+            CloseTiles();
+        }        
+    }
+
+    public void CloseTiles()
+    {
         foreach (var item in ClickTiles)
         {
             item.TurnOff();

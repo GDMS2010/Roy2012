@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 2938262517823418780}
   m_Layer: 0
   m_Name: PlagueDoctor
-  m_TagString: Untagged
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2590b52b06ef1244fb9f860f7547940d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Test Guy
+  characterName: Plague Doctor
   currHealth: 20
   maxHealth: 20
   damage: 2
@@ -363,7 +363,19 @@ MonoBehaviour:
       m_Calls: []
   onDie:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2938262517823418779}
+        m_TargetAssemblyTypeName: GridMovementController, Assembly-CSharp
+        m_MethodName: OnDie
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Portrait: {fileID: 21300000, guid: edb2b1cf55a80af419e401cc229e90db, type: 3}
 --- !u!114 &2938262517823418781
 MonoBehaviour:
@@ -383,7 +395,7 @@ MonoBehaviour:
   maxMoves: 1
   skills: []
   moveActionImage: {fileID: 21300000, guid: 8985b5600e2d3e641bb7b30464522a4e, type: 3}
-  basicAttackImage: {fileID: 0}
+  basicAttackImage: {fileID: 21300000, guid: a40d18829a0c94d488a9146a74626103, type: 3}
   specialMove1Image: {fileID: 0}
   moveActionImagePD: {fileID: 21300000, guid: 8985b5600e2d3e641bb7b30464522a4e, type: 3}
   healImage: {fileID: 21300000, guid: f3ee82d62f6363649ac8a7ab6dec8195, type: 3}

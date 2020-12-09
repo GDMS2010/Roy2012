@@ -6,6 +6,7 @@ public class GameManagerScript : MonoBehaviour
 {
     TurnOrder turnOrder;
     BattleUIScript uiScript;
+    Clicker clicker;
     Stats curCharacter;
     int turnCounter = 1; //defaults to turn 1 on start
     static BoardGenerator board;
@@ -25,6 +26,7 @@ public class GameManagerScript : MonoBehaviour
         inventoryUICanvas = GameObject.FindGameObjectWithTag("InventoryUICanvas");
         if (!inventoryUICanvas) Debug.LogError("Scene has a game manager but no inventory UI");
         else inventoryUICanvas.SetActive(false);//defaults inventory to closed
+        clicker = FindObjectOfType<Clicker>();
     }
 
     private void Start()
@@ -50,6 +52,7 @@ public class GameManagerScript : MonoBehaviour
         curCharActions = skills.numActions + skills.numMoves;
         uiScript.SetupActions(skills);
         uiScript.SetTurnUI("Turn " + turnCounter);
+        clicker.CloseTiles();
     }
 
     public void NextTurn()
