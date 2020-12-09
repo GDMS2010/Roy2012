@@ -26,7 +26,7 @@ public class VampireThrallSkills : SkillTreeScript
     {
         Clicker clicker = FindObjectOfType<Clicker>();
         BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally, basicAttack);
+        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally,true, basicAttack);
     }
     protected int basicAttack(ClickerTile tile)
     {
@@ -41,7 +41,7 @@ public class VampireThrallSkills : SkillTreeScript
     {
         Clicker clicker = FindObjectOfType<Clicker>();
         BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally, ClawSwipe);
+        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally,true, ClawSwipe);
     }
 
     protected int ClawSwipe(ClickerTile tile)
