@@ -13,6 +13,10 @@ public class GameManagerScript : MonoBehaviour
     static int curCharActions = 0;
     static GameManagerScript instance;
     GameObject inventoryUICanvas;
+    GameObject endScreenUICanvas;
+    EndUIController endUIController;
+
+    BattleManager m_battleManager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,10 +27,19 @@ public class GameManagerScript : MonoBehaviour
         board = FindObjectOfType<BoardGenerator>();
         if (!board) Debug.LogError("Scene has a game manager script but no board");
         instance = this;
+        //Inventory Variables
         inventoryUICanvas = GameObject.FindGameObjectWithTag("InventoryUICanvas");
         if (!inventoryUICanvas) Debug.LogError("Scene has a game manager but no inventory UI");
         else inventoryUICanvas.SetActive(false);//defaults inventory to closed
+        //End Screen Variables
+        endScreenUICanvas = GameObject.FindGameObjectWithTag("EndScreenUI");
+        if (!endScreenUICanvas) Debug.LogError("Scene has a game manager but no end screen UI");
+        endUIController = FindObjectOfType<EndUIController>();
+        if (!endUIController) Debug.LogError("Scene has no end UI Controller");
+        else endUIController.gameObject.SetActive(false);
         clicker = FindObjectOfType<Clicker>();
+        m_battleManager = gameObject.AddComponent<BattleManager>();
+        if (m_battleManager) Debug.LogError("Battle Manager Creation Failed");
     }
 
     private void Start()
@@ -85,5 +98,12 @@ public class GameManagerScript : MonoBehaviour
     }
 
     public TurnOrder GetTurnOrder() { return turnOrder; }
+
+    public static void SetWinningState(int state)
+    {
+        instance.endUIController.gameObject.SetActive(true);
+        instance.endUIController.ChangeState(state);
+        
+    }
     
 }
