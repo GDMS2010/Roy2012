@@ -74,6 +74,7 @@ public class BoardGenerator : MonoBehaviour
             }
         }
     }
+#if UNITY_EDITOR 
 
     void OnDrawGizmos()
     {
@@ -92,6 +93,7 @@ public class BoardGenerator : MonoBehaviour
             Gizmos.DrawLine(lineY1, lineY2);
         }
     }//Draws grid to show board division
+#endif
 
     public void MoveToCell(Vector2 cellIndex, GameObject obj, GridMovementController moveController)
     {

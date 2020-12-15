@@ -160,17 +160,17 @@ public class EnemyAIMaster : MonoBehaviour
     {
         Text text = GameObject.Find("EnemyText").GetComponent<Text>();
         s = text.text + "\n";
-        if (target == null)
+        if (target == null || !target.GetComponent<Stats>().isAlive())
             FindCloestTarget();
         if (target == null)
         {
             Debug.Log("No target found");
             return;
         }
-        s += "\n" + transform.name + " targeting " + target.name;
+        //s += "\n" + transform.name + " targeting " + target.name;
         BoardGenerator.Cell _cell = gmc.currentCell;
         int dis = bg.getCellWalkDistance(_cell.index, target.GetComponent<GridMovementController>().currentCell.index);
-        s += "\n" + transform.name + " Walk Distance away from " + target.name + " : " + dis;
+        //s += "\n" + transform.name + " Walk Distance away from " + target.name + " : " + dis;
         // check self walk distance + attack range
         int range = stats.getMoveSpeed + stats.getAttackRange;
         // if enough range
