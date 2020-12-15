@@ -52,6 +52,7 @@ public class EnemyAIMaster : MonoBehaviour
         foreach (var item in playerCharList)
         {
             float tempDis = Vector3.Distance(item.transform.position, transform.position);
+            bool isAlive = item.GetComponent<Stats>().isAlive();
             if (tempDis < distance)
             {
                 distance = tempDis;
