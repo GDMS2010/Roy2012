@@ -361,7 +361,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 512, y: -0.0029907227}
+  m_AnchoredPosition: {x: 512, y: 0}
   m_SizeDelta: {x: -1122.7092, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &318130780
@@ -414,7 +414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a832f347f301f24e92aeac3b215e9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testPlayer: {fileID: 1418090342}
   inventory: {fileID: 11400000, guid: fd345ac0991b7b148847ec80a917830a, type: 2}
   inventoryPrefab: {fileID: 3852980439727193899, guid: 2589773c377f84744afd003f4df25f65, type: 3}
   X_START: -300
@@ -1117,7 +1116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343c09d2678a240448f5e0dd80ed9201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testPlayer: {fileID: 1418090342}
   inventory: {fileID: 11400000, guid: e2d20f7790fd8994d96bf30c979b6708, type: 2}
   slots:
   - {fileID: 750439131}
@@ -1611,7 +1609,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fd345ac0991b7b148847ec80a917830a, type: 2}
-  speed: 10
+  equipment: {fileID: 11400000, guid: e2d20f7790fd8994d96bf30c979b6708, type: 2}
+  level:
+    EXP: 0
+    currLevel: 0
+    MAX_EXP: 0
+    MAX_LEVEL: 0
+  speed: 20
+  attributes:
+  - type: 0
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 1
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 2
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 3
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 4
+    value:
+      baseValue: 0
+      modifiedValue: 0
 --- !u!54 &1418090343
 Rigidbody:
   m_ObjectHideFlags: 0
