@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GustavoTesting.unity
     guid: 213a1a01531a30240834245affa512fb
+  - enabled: 1
+    path: Assets/Scenes/DiningRoom.unity
+    guid: e02441f99083cb346ab2bd378e956fd0
+  - enabled: 1
+    path: Assets/Scenes/Dungeon Level.unity
+    guid: 2c77e027e4c98ea418d90b266df7b99e
   m_configObjects: {}
