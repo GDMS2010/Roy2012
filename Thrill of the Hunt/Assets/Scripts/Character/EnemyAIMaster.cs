@@ -79,7 +79,7 @@ public class EnemyAIMaster : MonoBehaviour
             }
         }
         skillTree.skills[index]._Execute(target);
-        s += "\n" + transform.name + " dealt " + mostdmg + " damage";
+        s += "\n" + transform.name + " dealt " + mostdmg + " damage to "+ target.name;
     }
 
     void Walk(int steps)
