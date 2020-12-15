@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VampireThrallSkills : SkillTreeScript
+public class WildcardSkills : SkillTreeScript
 {
-    // Melee attack
-    // Deal 2 + nimbleness Damage
+    bool isUsed = false;
     private void Awake()
     {
         Setup();
@@ -18,36 +17,36 @@ public class VampireThrallSkills : SkillTreeScript
 
         ActionScript moveAction = gameObject.AddComponent(typeof(ActionScript)) as ActionScript;
         moveAction.action = new UnityEngine.Events.UnityEvent();
-        moveAction.action.AddListener(ClawSwipeClick);
+        moveAction.action.AddListener(CrossbowClick);
         moveAction.actionImage = specialMove1Image;
         skills.Add(moveAction);
     }
-    void BasicAttackClick()
-    {
-        Clicker clicker = FindObjectOfType<Clicker>();
-        BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally,true, basicAttack);
-    }
-    protected int basicAttack(ClickerTile tile)
+    // Start is called before the first frame update
+    protected int Crossbow(ClickerTile tile)
     {
         GameObject target = tile.gmc.currentCell.occupiedObject;
-        target.GetComponent<Stats>().hurt(stats.getDamage, Stats.DamageType.True);
+        target.GetComponent<Stats>().hurt(stats.getDamage * 2, Stats.DamageType.True);
         numActions--;
         GameManagerScript.SubtractAction();
         return 0;
     }
 
-    void ClawSwipeClick()
+    void CrossbowClick()
     {
         Clicker clicker = FindObjectOfType<Clicker>();
         BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally,true, ClawSwipe);
+        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Enemy, true, Crossbow);
     }
-
-    protected int ClawSwipe(ClickerTile tile)
+    void BasicAttackClick()
+    {
+        Clicker clicker = FindObjectOfType<Clicker>();
+        BoardGenerator.Cell cell = m_moveControl.currentCell;
+        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Enemy, true, basicAttack);
+    }
+    protected int basicAttack(ClickerTile tile)
     {
         GameObject target = tile.gmc.currentCell.occupiedObject;
-        target.GetComponent<Stats>().hurt(2 + stats.getNimBleness, Stats.DamageType.True);
+        target.GetComponent<Stats>().hurt(stats.getDamage, Stats.DamageType.True);
         numActions--;
         GameManagerScript.SubtractAction();
         return 0;

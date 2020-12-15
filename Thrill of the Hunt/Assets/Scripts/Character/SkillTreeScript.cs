@@ -53,7 +53,7 @@ public class SkillTreeScript : MonoBehaviour
     {
         Clicker clicker = FindObjectOfType<Clicker>();
         BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getSpeed, Clicker.TargetType.Empty, Move);
+        clicker.setupClickBoard(cell, stats.getSpeed, Clicker.TargetType.Empty,true, Move);
     }
     int Move(ClickerTile tile)
     {

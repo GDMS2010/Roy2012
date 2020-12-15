@@ -14,7 +14,6 @@ public class Clicker : MonoBehaviour
                         0,-1, //up
                         0,1 }; //down
 
-    List<BoardGenerator.Cell> checkedCells;
     List<BoardGenerator.Cell> availableCells;
     public enum TargetType
     {
@@ -27,7 +26,6 @@ public class Clicker : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        checkedCells = new List<BoardGenerator.Cell>();
         availableCells = new List<BoardGenerator.Cell>();
         ClickTiles = new List<ClickerTile>();
     }
@@ -55,115 +53,186 @@ public class Clicker : MonoBehaviour
 
         //_func(target);
     }
-    public void setupClickBoard(BoardGenerator.Cell start, int range, TargetType type, System.Func<ClickerTile, int> func)
+    public void setupClickBoard(BoardGenerator.Cell start, int range, TargetType type, bool Attack, System.Func<ClickerTile, int> func)
     {
         _func = func;
-        checkedCells.Clear();
-        availableCells.Clear();
-        setupRecursive(start, range, type);
-        //BFS(start, range, type);
-        //Search(start, range, type);
         foreach (var item in ClickTiles)
         {
             item.gameObject.SetActive(false);
         }
-        foreach (var item in availableCells)
+
+        int cx = (int)start.index.x, cy = (int)start.index.y; //get center xy
+        switch (type)
         {
-            ClickerTile temptile = null;
-            //If have any available tile
-            foreach (var tile in ClickTiles)
-            {
-                if (!tile.used)
+            case TargetType.Empty:
                 {
-                    //get tile ref
-                    temptile = tile;
-                    break;
-                }
-            }
-            if (temptile == null)
-            {
-                //else instantiate a new one
-                GameObject temp = Instantiate(dot, transform);
-                temptile = temp.GetComponent<ClickerTile>();
-                temptile.setClicker(this);
-                ClickTiles.Add(temptile);
-            }
-            //set position
-            GridMovementController gmc = temptile.GetComponent<GridMovementController>();
-            GameManagerScript.getBoard().MoveToCell(item.index, temptile.gameObject, gmc);
-            //set active
-            temptile.gameObject.SetActive(true);
-            temptile.used = true;
-        }
-    }
-
-    void setupRecursive(BoardGenerator.Cell start, int range, TargetType type)
-    {
-        //if negative range, just leave
-        if (range < 0) return;
-        //If checked, just leave
-        if (checkedCells.Contains(start)) return;
-        //Add this cell as checked
-        checkedCells.Add(start);
-        //Check the cell
-        checking(start, type);
-        //Foreach neibour, call this function
-        for (int i = 0; i < 8; i += 2)
-        {
-            int x = (int)start.index.x + checkIndex[i];
-            int y = (int)start.index.y + checkIndex[i + 1];
-            BoardGenerator.Cell temp = GameManagerScript.getBoard().isValidCell(new Vector2(x, y));
-            if (temp != null)
-                setupRecursive(temp, range - 1, type);
-        }
-    }
-
-    void BFS(BoardGenerator.Cell start, int range, TargetType type)
-    {
-        Queue<BoardGenerator.Cell> queue = new Queue<BoardGenerator.Cell>();
-
-        queue.Enqueue(start);
-        checkedCells.Add(start);
-        while (queue.Count > 0)
-        {
-            BoardGenerator.Cell temp = queue.Dequeue();
-            checking(temp, type);
-
-            for (int i = 0; i < 8; i += 2)
-            {
-                int x = (int)start.index.x + checkIndex[i];
-                int y = (int)start.index.y + checkIndex[i + 1];
-                BoardGenerator.Cell temp2 = GameManagerScript.getBoard().isValidCell(new Vector2(x, y));
-                if (temp2 != null)
-                {
-                    if (!checkedCells.Contains(temp2))
+                    List<BoardGenerator.Cell> walkable = new List<BoardGenerator.Cell>();
+                    for (int x = cx - range; x <= cx + range; x++) //from left to right
                     {
-                        checkedCells.Add(temp2);
-                        queue.Enqueue(temp2);
-                    }
-                }
-            }
-        }
-    }
-
-    void Search(BoardGenerator.Cell start, int range, TargetType type)
-    {
-        int center = (int)start.index.x + (int)start.index.y;
-        for (int x = 0; x < 100; x++)
-        {
-            for (int y = 0; y < 100; y++)
-            {
-                if (Mathf.Abs(x-y)<range)
-                {
-                    BoardGenerator.Cell temp = GameManagerScript.getBoard().isValidCell(new Vector2(x, y));
-                    if (temp != null)
-                    {
-                        int sum = x + y;
-                        if (Mathf.Abs(center - sum) <= range)
+                        int val = cx - x;
+                        val = Mathf.Abs(val);
+                        val = range - val;  //closer to leftmost,rightmost, y range will be lowest
+                        for (int y = cy - val; y <= cy + val; y++)
                         {
-                                checking(temp, type);
+                            BoardGenerator.Cell temp = GameManagerScript.getBoard().isValidCell(new Vector2(x, y));
+                            if (temp != null)
+                            {
+                                if (!temp.occupiedObject)
+                                    walkable.Add(temp);
+                            }
                         }
                     }
+                    foreach (var cell in walkable)
+                    {
+                        ClickerTile temptile = null;
+                        //If have any available tile
+                        foreach (var tile in ClickTiles)
+                        {
+                            if (!tile.used)
+                            {
+                                //get tile ref
+                                temptile = tile;
+                                break;
+                            }
+                        }
+                        if (temptile == null)
+                        {
+                            //else instantiate a new one
+                            GameObject temp = Instantiate(dot, transform);
+                            temptile = temp.GetComponent<ClickerTile>();
+                            temptile.setClicker(this);
+                            ClickTiles.Add(temptile);
+                        }
+                        //set position
+                        GridMovementController gmc = temptile.GetComponent<GridMovementController>();
+                        GameManagerScript.getBoard().MoveToCell(cell.index, temptile.gameObject, gmc);
+                        //set active
+                        temptile.TurnOn(ClickerTile.TileType.Walkable);
+                    }
+                    break;
+                }
+            case TargetType.Ally:
+            case TargetType.Enemy:
+                {
+                    List<BoardGenerator.Cell> withinRange = new List<BoardGenerator.Cell>();
+                    for (int x = cx - range; x <= cx + range; x++) //from left to right
+                    {
+                        int val = cx - x;
+                        val = Mathf.Abs(val);
+                        val = range - val;  //closer to leftmost,rightmost, y range will be lowest
+                        for (int y = cy - val; y <= cy + val; y++)
+                        {
+                            BoardGenerator.Cell temp = GameManagerScript.getBoard().isValidCell(new Vector2(x, y));
+                            if (temp != null)
+                            {
+                                withinRange.Add(temp);
+                            }
+                        }
+                    }
+                    foreach (var cell in withinRange)
+                    {
+                        ClickerTile temptile = null;
+                        //If have any available tile
+                        foreach (var tile in ClickTiles)
+                        {
+                            if (!tile.used)
+                            {
+                                //get tile ref
+                                temptile = tile;
+                                break;
+                            }
+                        }
+                        if (temptile == null)
+                        {
+                            //else instantiate a new one
+                            GameObject temp = Instantiate(dot, transform);
+                            temptile = temp.GetComponent<ClickerTile>();
+                            temptile.setClicker(this);
+                            ClickTiles.Add(temptile);
+                        }
+                        //set position
+                        GridMovementController gmc = temptile.GetComponent<GridMovementController>();
+                        GameManagerScript.getBoard().MoveToCell(cell.index, temptile.gameObject, gmc);
+                        //set active
+                        if (!cell.occupiedObject)
+                            temptile.TurnOn(ClickerTile.TileType.Range);
+                        else
+                        {
+                            if (cell.occupiedObject.tag == "Ally")
+                            {
+                                if (type == TargetType.Ally)
+                                    if (Attack)
+                                        temptile.TurnOn(ClickerTile.TileType.Attackable);
+                                    else
+                                        temptile.TurnOn(ClickerTile.TileType.Healable);
+                                else
+                                    temptile.TurnOn(ClickerTile.TileType.Range);
+                            }
+                            else if (cell.occupiedObject.tag == "Enemy")
+                            {
+                                if (type == TargetType.Enemy)
+                                    if (Attack)
+                                        temptile.TurnOn(ClickerTile.TileType.Attackable);
+                                    else
+                                        temptile.TurnOn(ClickerTile.TileType.Healable);
+                                else
+                                    temptile.TurnOn(ClickerTile.TileType.Range);
+                            }
+                            else
+                                temptile.TurnOn(ClickerTile.TileType.Range);
+                        }
+                    }
+                    break;
+                }
+            default:
+                break;
+        }
+        //Search(start, range, type);
+
+        //foreach (var item in availableCells)
+        //{
+        //    ClickerTile temptile = null;
+        //    //If have any available tile
+        //    foreach (var tile in ClickTiles)
+        //    {
+        //        if (!tile.used)
+        //        {
+        //            //get tile ref
+        //            temptile = tile;
+        //            break;
+        //        }
+        //    }
+        //    if (temptile == null)
+        //    {
+        //        //else instantiate a new one
+        //        GameObject temp = Instantiate(dot, transform);
+        //        temptile = temp.GetComponent<ClickerTile>();
+        //        temptile.setClicker(this);
+        //        ClickTiles.Add(temptile);
+        //    }
+        //    //set position
+        //    GridMovementController gmc = temptile.GetComponent<GridMovementController>();
+        //    GameManagerScript.getBoard().MoveToCell(item.index, temptile.gameObject, gmc);
+        //    //set active
+        //    temptile.gameObject.SetActive(true);
+        //    temptile.used = true;
+        //}
+    }
+    void Search(BoardGenerator.Cell start, int range, TargetType type)
+    {
+        int cx = (int)start.index.x, cy = (int)start.index.y; //get center xy
+
+        for (int x = cx - range; x <= cx + range; x++) //from left to right
+        {
+            int val = cx - x;
+            val = Mathf.Abs(val);
+            val = range - val;  //closer to leftmost,rightmost, y range will be lowest
+            for (int y = cy - val; y <= cy + val; y++)
+            {
+                BoardGenerator.Cell temp = GameManagerScript.getBoard().isValidCell(new Vector2(x, y));
+                if (temp != null)
+                {
+                    checking(temp, type);
                 }
             }
         }
@@ -200,11 +269,18 @@ public class Clicker : MonoBehaviour
 
     public void Clicked(ClickerTile tile)
     {
-        _func(tile);
+        if(tile.tileType!=ClickerTile.TileType.Range)
+        {
+            _func(tile);
+            CloseTiles();
+        }        
+    }
+
+    public void CloseTiles()
+    {
         foreach (var item in ClickTiles)
         {
-            item.used = false;
-            item.gameObject.SetActive(false);
+            item.TurnOff();
         }
     }
 }

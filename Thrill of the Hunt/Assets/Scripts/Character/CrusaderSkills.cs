@@ -38,7 +38,7 @@ public class CrusaderSkills : SkillTreeScript
     {
         Clicker clicker = FindObjectOfType<Clicker>();
         BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Enemy, basicAttack);
+        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Enemy, true, basicAttack);
     }
     protected int basicAttack(ClickerTile tile)
     {
