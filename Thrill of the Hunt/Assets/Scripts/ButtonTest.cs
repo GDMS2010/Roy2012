@@ -18,10 +18,8 @@ public class ButtonTest : MonoBehaviour
 
     public void GoToScene()
     {
-#if UNITY_EDITOR 
-        EditorSceneManager.LoadScene(destinationSceneName);
-#else
+
         SceneManager.LoadScene(destinationSceneName);
-#endif
+
     }
 }
