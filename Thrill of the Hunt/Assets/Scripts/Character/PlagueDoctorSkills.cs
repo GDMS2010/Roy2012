@@ -30,7 +30,6 @@ public class PlagueDoctorSkills : SkillTreeScript
         healAction.action.AddListener(HealClick);
         healAction.actionImage = healImage;
         skills.Add(healAction);
-
     }
 
     // Update is called once per frame

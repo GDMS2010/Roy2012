@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DebugScript : MonoBehaviour
 {
@@ -24,5 +25,15 @@ public class DebugScript : MonoBehaviour
         {
             Destroy(managerInstance.getCurCharacter().gameObject);
         }
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(3);
     }
 }

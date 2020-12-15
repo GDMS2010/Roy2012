@@ -11,45 +11,80 @@ public class VampireThrallSkills : SkillTreeScript
         Setup();
 
         ActionScript moveAction2 = gameObject.AddComponent(typeof(ActionScript)) as ActionScript;
-        moveAction2.action = new UnityEngine.Events.UnityEvent();
-        moveAction2.action.AddListener(BasicAttackClick);
+        moveAction2._action = new UnityEngine.Events.UnityEvent<GameObject>();
+        moveAction2._action.AddListener(_BasicAttack);
         moveAction2.actionImage = basicAttackImage;
+        moveAction2.damage = stats.getDamage;
         skills.Add(moveAction2);
 
         ActionScript moveAction = gameObject.AddComponent(typeof(ActionScript)) as ActionScript;
-        moveAction.action = new UnityEngine.Events.UnityEvent();
-        moveAction.action.AddListener(ClawSwipeClick);
+        moveAction._action = new UnityEngine.Events.UnityEvent<GameObject>();
+        moveAction._action.AddListener(_ClawSwipe);
         moveAction.actionImage = specialMove1Image;
+        moveAction.damage = 2 + stats.getNimBleness;
+        moveAction.MaxCooldown = 2;
         skills.Add(moveAction);
     }
-    void BasicAttackClick()
+    //void BasicAttackClick()
+    //{
+    //    Clicker clicker = FindObjectOfType<Clicker>();
+    //    BoardGenerator.Cell cell = m_moveControl.currentCell;
+    //    clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally, true, basicAttack);
+    //}
+
+    //protected int basicAttack(ClickerTile tile)
+    //{
+    //    GameObject target = tile.gmc.currentCell.occupiedObject;
+    //    target.GetComponent<Stats>().hurt(skills[1].damage, Stats.DamageType.True);
+    //    numActions--;
+    //    GameManagerScript.SubtractAction();
+    //    return 0;
+    //}
+
+    void _BasicAttack(GameObject target)
     {
-        Clicker clicker = FindObjectOfType<Clicker>();
-        BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally,true, basicAttack);
-    }
-    protected int basicAttack(ClickerTile tile)
-    {
-        GameObject target = tile.gmc.currentCell.occupiedObject;
-        target.GetComponent<Stats>().hurt(stats.getDamage, Stats.DamageType.True);
+        target.GetComponent<Stats>().hurt(skills[1].damage, Stats.DamageType.True);
         numActions--;
         GameManagerScript.SubtractAction();
-        return 0;
+        if(numMoves>0)
+        {
+            numMoves--;
+            GameManagerScript.SubtractAction();
+        }
     }
 
-    void ClawSwipeClick()
+    void _ClawSwipe(GameObject target)
     {
-        Clicker clicker = FindObjectOfType<Clicker>();
-        BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally,true, ClawSwipe);
-    }
-
-    protected int ClawSwipe(ClickerTile tile)
-    {
-        GameObject target = tile.gmc.currentCell.occupiedObject;
-        target.GetComponent<Stats>().hurt(2 + stats.getNimBleness, Stats.DamageType.True);
+        Debug.Log(transform.name + " used ClawSwipe");
+        target.GetComponent<Stats>().hurt(skills[2].damage, Stats.DamageType.True);
         numActions--;
         GameManagerScript.SubtractAction();
-        return 0;
+        skills[2].remainCooldown = skills[2].MaxCooldown;
+        if (numMoves > 0)
+        {
+            numMoves--;
+            GameManagerScript.SubtractAction();
+        }
     }
+    
+
+    //void ClawSwipeClick()
+    //{
+    //    if (skills[2].remainCooldown <= 0)
+    //    {
+    //        Clicker clicker = FindObjectOfType<Clicker>();
+    //        BoardGenerator.Cell cell = m_moveControl.currentCell;
+    //        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Ally, true, ClawSwipe);
+    //    }
+    //}
+
+    //protected int ClawSwipe(ClickerTile tile)
+    //{
+    //    GameObject target = tile.gmc.currentCell.occupiedObject;
+    //    target.GetComponent<Stats>().hurt(skills[2].damage, Stats.DamageType.True);
+    //    numActions--;
+    //    GameManagerScript.SubtractAction();
+    //    if (skills[2].MaxCooldown > 0) skills[2].remainCooldown = skills[2].MaxCooldown;
+    //    return 0;
+    //}
 }

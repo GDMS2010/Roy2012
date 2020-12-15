@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ally
   - Enemy
+  - InventoryUICanvas
+  - EndScreenUI
   layers:
   - Default
   - TransparentFX

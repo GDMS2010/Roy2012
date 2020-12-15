@@ -37,7 +37,7 @@ public class Stats : MonoBehaviour
     public int getBrawn => brawn;
     public int getBrain => brain;
     public int getVigor => vigor;
-    public int getSpeed => moveSpeed;
+    public int getMoveSpeed => moveSpeed;
     public int getDamage => damage;
     public int getAttackRange => attackRange;
 

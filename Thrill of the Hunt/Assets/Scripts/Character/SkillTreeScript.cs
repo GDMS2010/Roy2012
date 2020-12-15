@@ -53,7 +53,7 @@ public class SkillTreeScript : MonoBehaviour
     {
         Clicker clicker = FindObjectOfType<Clicker>();
         BoardGenerator.Cell cell = m_moveControl.currentCell;
-        clicker.setupClickBoard(cell, stats.getSpeed, Clicker.TargetType.Empty,true, Move);
+        clicker.setupClickBoard(cell, stats.getMoveSpeed, Clicker.TargetType.Empty,true, Move);
     }
     int Move(ClickerTile tile)
     {
@@ -73,6 +73,21 @@ public class SkillTreeScript : MonoBehaviour
         return 0;
     }
 
+    public void Move(BoardGenerator.Cell cell)
+    {
+        if (numMoves > 0)
+        {
+            GameManagerScript.getBoard().MoveToCell(cell.index, gameObject, m_moveControl);
+            numMoves--;
+            GameManagerScript.SubtractAction();
+        }
+        else if (numActions > 0)
+        {
+            GameManagerScript.getBoard().MoveToCell(cell.index, gameObject, m_moveControl);
+            numActions--;
+            GameManagerScript.SubtractAction();
+        }
+    }
     protected void Setup()
     {
         m_moveControl = GetComponent<GridMovementController>();
@@ -82,5 +97,13 @@ public class SkillTreeScript : MonoBehaviour
         moveAction.action.AddListener(MoveClick);
         moveAction.actionImage = moveActionImage;
         skills.Add(moveAction);
+    }
+    public void reduceCooldown()
+    {
+        foreach (var s in skills)
+        {
+            if (s.remainCooldown > 0)
+                s.remainCooldown--;
+        }
     }
 }
