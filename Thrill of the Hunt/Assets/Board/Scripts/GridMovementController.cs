@@ -7,7 +7,7 @@ public class GridMovementController : MonoBehaviour
     BoardGenerator m_boardManagerRef;
     public BoardGenerator.Cell currentCell; //keeps a reference to the cur position on board
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_boardManagerRef = GameObject.FindObjectOfType<BoardGenerator>();
         currentCell =  m_boardManagerRef.SnapObject(transform);

@@ -23,7 +23,7 @@ public class Clicker : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         cam = Camera.main;
         availableCells = new List<BoardGenerator.Cell>();
@@ -218,54 +218,54 @@ public class Clicker : MonoBehaviour
         //    temptile.used = true;
         //}
     }
-    void Search(BoardGenerator.Cell start, int range, TargetType type)
-    {
-        int cx = (int)start.index.x, cy = (int)start.index.y; //get center xy
+    //void Search(BoardGenerator.Cell start, int range, TargetType type)
+    //{
+    //    int cx = (int)start.index.x, cy = (int)start.index.y; //get center xy
 
-        for (int x = cx - range; x <= cx + range; x++) //from left to right
-        {
-            int val = cx - x;
-            val = Mathf.Abs(val);
-            val = range - val;  //closer to leftmost,rightmost, y range will be lowest
-            for (int y = cy - val; y <= cy + val; y++)
-            {
-                BoardGenerator.Cell temp = GameManagerScript.getBoard().isValidCell(new Vector2(x, y));
-                if (temp != null)
-                {
-                    checking(temp, type);
-                }
-            }
-        }
-    }
+    //    for (int x = cx - range; x <= cx + range; x++) //from left to right
+    //    {
+    //        int val = cx - x;
+    //        val = Mathf.Abs(val);
+    //        val = range - val;  //closer to leftmost,rightmost, y range will be lowest
+    //        for (int y = cy - val; y <= cy + val; y++)
+    //        {
+    //            BoardGenerator.Cell temp = GameManagerScript.getBoard().isValidCell(new Vector2(x, y));
+    //            if (temp != null)
+    //            {
+    //                checking(temp, type);
+    //            }
+    //        }
+    //    }
+    //}
 
-    void checking(BoardGenerator.Cell cell, TargetType type)
-    {
-        switch (type)
-        {
-            case TargetType.Empty:
-                {
-                    if (!cell.occupiedObject)
-                        availableCells.Add(cell);
-                    break;
-                }
-            case TargetType.Ally:
-                {
-                    if (cell.occupiedObject)
-                        if (cell.occupiedObject.tag == "Ally")
-                            availableCells.Add(cell);
-                    break;
-                }
-            case TargetType.Enemy:
-                {
-                    if (cell.occupiedObject)
-                        if (cell.occupiedObject.tag == "Enemy")
-                            availableCells.Add(cell);
-                    break;
-                }
-            default:
-                break;
-        }
-    }
+    //void checking(BoardGenerator.Cell cell, TargetType type)
+    //{
+    //    switch (type)
+    //    {
+    //        case TargetType.Empty:
+    //            {
+    //                if (!cell.occupiedObject)
+    //                    availableCells.Add(cell);
+    //                break;
+    //            }
+    //        case TargetType.Ally:
+    //            {
+    //                if (cell.occupiedObject)
+    //                    if (cell.occupiedObject.tag == "Ally")
+    //                        availableCells.Add(cell);
+    //                break;
+    //            }
+    //        case TargetType.Enemy:
+    //            {
+    //                if (cell.occupiedObject)
+    //                    if (cell.occupiedObject.tag == "Enemy")
+    //                        availableCells.Add(cell);
+    //                break;
+    //            }
+    //        default:
+    //            break;
+    //    }
+    //}
 
     public void Clicked(ClickerTile tile)
     {

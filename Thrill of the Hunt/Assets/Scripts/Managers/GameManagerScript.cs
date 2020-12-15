@@ -26,11 +26,12 @@ public class GameManagerScript : MonoBehaviour
         inventoryUICanvas = GameObject.FindGameObjectWithTag("InventoryUICanvas");
         if (!inventoryUICanvas) Debug.LogError("Scene has a game manager but no inventory UI");
         else inventoryUICanvas.SetActive(false);//defaults inventory to closed
-        clicker = FindObjectOfType<Clicker>();
+        
     }
 
     private void Start()
     {
+        clicker = FindObjectOfType<Clicker>();
         curCharacter = turnOrder.GetCurrent().GetComponent<Stats>();
         if (!curCharacter) Debug.LogError("Failed to get stats component from current head of turn from TurnOrder script");
         UpdateUI();
@@ -52,7 +53,12 @@ public class GameManagerScript : MonoBehaviour
         curCharActions = skills.numActions + skills.numMoves;
         uiScript.SetupActions(skills);
         uiScript.SetTurnUI("Turn " + turnCounter);
+        if(!clicker) clicker = FindObjectOfType<Clicker>();
         clicker.CloseTiles();
+        if(curCharacter.tag == "Enemy")
+        {
+            curCharacter.gameObject.GetComponent<EnemyAIMaster>().NextTurn();
+        }
     }
 
     public void NextTurn()
