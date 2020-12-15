@@ -39,7 +39,7 @@ public class GameManagerScript : MonoBehaviour
         else endUIController.gameObject.SetActive(false);
         clicker = FindObjectOfType<Clicker>();
         m_battleManager = gameObject.AddComponent<BattleManager>();
-        if (m_battleManager) Debug.LogError("Battle Manager Creation Failed");
+        if (!m_battleManager) Debug.LogError("Battle Manager Creation Failed");
     }
 
     private void Start()

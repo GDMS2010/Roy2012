@@ -37,12 +37,12 @@ public class BattleManager : MonoBehaviour
     {
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (enemies[i] == null)
+            if (!enemies[i].gameObject.activeSelf)
                 enemies.Remove(enemies[i]);
         }
         for (int i = 0; i < players.Count; i++)
         {
-            if (players[i] == null)
+            if (!players[i].gameObject.activeSelf)
                 players.Remove(players[i]);
         }
         if (enemies.Count == 0)

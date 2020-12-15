@@ -75,7 +75,7 @@ public class BoardGenerator : MonoBehaviour
         }
     }
 
-   /* void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         if (!drawing || cells == null)
             return;
@@ -91,7 +91,7 @@ public class BoardGenerator : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(lineY1, lineY2);
         }
-    }//Draws grid to show board division*/
+    }//Draws grid to show board division
 
     public void MoveToCell(Vector2 cellIndex, GameObject obj, GridMovementController moveController)
     {

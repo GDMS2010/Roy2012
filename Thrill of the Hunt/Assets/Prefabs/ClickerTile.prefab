@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8091855452489378724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 8.5, y: 1, z: 8.5}
+  m_LocalScale: {x: 4.64, y: 0.22, z: 4.64}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -124,9 +124,9 @@ MonoBehaviour:
   - {r: 0.8018868, g: 0, b: 0, a: 1}
   - {r: 0.0037207333, g: 0.4528302, b: 0, a: 1}
   - {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
-  range: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 0.5019608}
   gmc: {fileID: 0}
   used: 0
+  tileType: 3
 --- !u!114 &-8544177248130043140
 MonoBehaviour:
   m_ObjectHideFlags: 0

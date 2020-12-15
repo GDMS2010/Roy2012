@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 4315262877401371664}
   - component: {fileID: 4315262877401371665}
   - component: {fileID: 6186781288298986735}
+  - component: {fileID: 6249427462523945666}
   m_Layer: 0
   m_Name: Dracula
   m_TagString: Enemy
@@ -447,6 +448,18 @@ MonoBehaviour:
   moveActionImage: {fileID: 0}
   basicAttackImage: {fileID: 0}
   specialMove1Image: {fileID: 0}
+--- !u!114 &6249427462523945666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4315262877401371671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d17ed0ce133de54680389913a7a2818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4315262878117668295
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7942441490938190218}
   m_Layer: 0
-  m_Name: Effect (1)
+  m_Name: Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
