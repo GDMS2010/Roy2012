@@ -88,7 +88,7 @@ public class Stats : MonoBehaviour
             _isAlive = false;
             onDie?.Invoke();
             FindObjectOfType<GameManagerScript>().GetTurnOrder().removeCharacter(this.gameObject);
-            gameObject.SetActive(false);        
+            gameObject.SetActive(false);
         }
         else
             onHurt?.Invoke();
@@ -106,5 +106,25 @@ public class Stats : MonoBehaviour
     {
         return _isAlive;
     }
+    //Call when modify any stats
+    public void modifyStats(statsData data)
+    {
+
+    }
+
+    public class statsData
+    {
+        public int maxHP { get; set; }
+        public int damage { get; set; }
+        public int attackRange { get; set; }
+        public int moveSpeed { get; set; }
+
+        public int defense { get; set; }
+        public int nimbleness { get; set; }
+        public int brawn { get; set; }
+        public int brain { get; set; }
+        public int vigor { get; set; }
+    }
+
     #endregion
 }
