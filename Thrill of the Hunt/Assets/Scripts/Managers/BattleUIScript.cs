@@ -52,6 +52,10 @@ public class BattleUIScript : MonoBehaviour
             buttonRef.onClick.RemoveAllListeners();
             buttonRef.onClick.AddListener(skills.skills[i].Execute);
             skillSlots.transform.GetChild(i).GetComponent<Image>().sprite = skills.skills[i].actionImage;
+            if (skillSlots.transform.GetChild(i).GetComponent<Image>().sprite == null)
+                skillSlots.transform.GetChild(i).gameObject.SetActive(false);
+            else
+                skillSlots.transform.GetChild(i).gameObject.SetActive(true);
         }
     }
 }
