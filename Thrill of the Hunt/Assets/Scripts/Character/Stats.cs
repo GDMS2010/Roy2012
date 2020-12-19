@@ -109,7 +109,18 @@ public class Stats : MonoBehaviour
     //Call when modify any stats
     public void modifyStats(statsData data)
     {
+        currHealth += data.maxHP;
+        maxHealth += data.maxHP;
 
+        damage += data.damage;
+        attackRange += data.attackRange;
+        moveSpeed += data.moveSpeed;
+
+        defense += data.defense;
+        nimbleness += data.nimbleness;
+        brawn += data.brawn;
+        brain += data.brain;
+        vigor += data.vigor;
     }
 
     public class statsData
