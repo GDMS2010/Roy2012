@@ -13,6 +13,9 @@ public class EnemyAIMaster : MonoBehaviour
     SkillTreeScript skillTree;
     bool myTurn;
     string s;
+    int movecount = 2;
+
+    float delayTimer = 3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,10 +43,43 @@ public class EnemyAIMaster : MonoBehaviour
     {
         if (myTurn)
         {
-            Action();
+            if (target == null || !target.GetComponent<Stats>().isAlive())
+                FindCloestTarget();
+            if (target == null)
+            {
+                Debug.Log("No target found");
+                return;
+            }
+
+            delayTimer -= Time.deltaTime;
+            if(delayTimer <0)
+            {
+                Text text = GameObject.Find("EnemyText").GetComponent<Text>();
+                s = text.text + "\n";
+                BoardGenerator.Cell _cell = gmc.currentCell;
+                int dis = bg.getCellWalkDistance(_cell.index, target.GetComponent<GridMovementController>().currentCell.index);
+
+                if (stats.getAttackRange < dis)
+                {
+                    Walk(stats.getMoveSpeed);
+                    movecount--;
+                }
+                else
+                {
+                    attack();
+                    movecount -= 2;
+                }
+                text.text = s;
+                delayTimer = 3f;
+
+                if(movecount <= 0)
+                {
+                    myTurn = false;
+                    movecount = 2;
+                }
+            }
         }
     }
-
 
     //FindCloestTarget and replace current target
     void FindCloestTarget()
@@ -156,8 +192,7 @@ public class EnemyAIMaster : MonoBehaviour
         }
         s += "\n" + transform.name + " walked ";
     }
-
-    void Action()
+    void action()
     {
         Text text = GameObject.Find("EnemyText").GetComponent<Text>();
         s = text.text + "\n";
