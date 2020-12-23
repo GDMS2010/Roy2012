@@ -8,6 +8,7 @@ public class GameManagerScript : MonoBehaviour
     BattleUIScript uiScript;
     Clicker clicker;
     Stats curCharacter;
+    static GameObject curr_char;
     int turnCounter = 1; //defaults to turn 1 on start
     static BoardGenerator board;
     static int curCharActions = 0;
@@ -46,6 +47,8 @@ public class GameManagerScript : MonoBehaviour
     {
         clicker = FindObjectOfType<Clicker>();
         curCharacter = turnOrder.GetCurrent().GetComponent<Stats>();
+        curr_char = turnOrder.GetCurrent();
+
         if (!curCharacter) Debug.LogError("Failed to get stats component from current head of turn from TurnOrder script");
         UpdateUI();
     }
@@ -58,6 +61,7 @@ public class GameManagerScript : MonoBehaviour
 
     void UpdateUI()
     {
+        curr_char = turnOrder.GetCurrent();
         curCharacter = turnOrder.GetCurrent().GetComponent<Stats>();
         if (!curCharacter) Debug.LogError("Failed to get stats component from current head of turn from TurnOrder script");
         uiScript.SetupUI(curCharacter);
@@ -95,7 +99,10 @@ public class GameManagerScript : MonoBehaviour
     {
         curCharActions--;
         if (curCharActions <= 0)
+        {
+            curr_char.GetComponent<SkillTreeScript>().endTurn();
             instance.NextTurn();
+        }
     }
 
     public static void ToggleInventory()

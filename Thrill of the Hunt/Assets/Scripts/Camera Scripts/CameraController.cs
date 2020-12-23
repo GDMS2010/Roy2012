@@ -5,6 +5,13 @@ public class CameraController : MonoBehaviour
     public float panSpeed = 20f;
     public float rotSpeed = 50f;
     public float zoomSpeed = 50f;
+    BoxCollider BoxCollider;
+    public GameObject boundry;
+
+    private void Start()
+    {
+        BoxCollider = boundry.GetComponent<BoxCollider>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -26,21 +33,27 @@ public class CameraController : MonoBehaviour
             {
                 int dir = 1;
 
-                Vector3 direction = transform.forward;
-                direction.y = 0;
-                direction.Normalize();
+                if (transform.position.z < BoxCollider.bounds.max.z)
+                {
+                    Vector3 direction = transform.forward;
+                    direction.y = 0;
+                    direction.Normalize();
 
-                transform.Translate(direction * Time.deltaTime * panSpeed * dir, Space.World);
+                    transform.Translate(direction * Time.deltaTime * panSpeed * dir, Space.World);
+                }
             }
             else if (Input.mousePosition.y <= Screen.height * 0.05)
             {
                 int dir = -1;
 
-                Vector3 direction = transform.forward;
-                direction.y = 0;
-                direction.Normalize();
+                if (transform.position.z > BoxCollider.bounds.min.z)
+                {
+                    Vector3 direction = transform.forward;
+                    direction.y = 0;
+                    direction.Normalize();
 
-                transform.Translate(direction * Time.deltaTime * panSpeed * dir, Space.World);
+                    transform.Translate(direction * Time.deltaTime * panSpeed * dir, Space.World);
+                }
             }
 
             // For Camera Moving left and right
@@ -58,21 +71,26 @@ public class CameraController : MonoBehaviour
             {
                 int dir = 1;
 
-                Vector3 direction = transform.right;
-                direction.y = 0;
-                direction.Normalize();
+                if (transform.position.x < BoxCollider.bounds.max.x)
+                {
+                    Vector3 direction = transform.right;
+                    direction.y = 0;
+                    direction.Normalize();
 
-                transform.Translate(direction * Time.deltaTime * panSpeed * dir, Space.World);
+                    transform.Translate(direction * Time.deltaTime * panSpeed * dir, Space.World);
+                }
             }
             else if (Input.mousePosition.x <= Screen.width * 0.05)
             {
                 int dir = -1;
+                if (transform.position.x > BoxCollider.bounds.min.x)
+                {
+                    Vector3 direction = transform.right;
+                    direction.y = 0;
+                    direction.Normalize();
 
-                Vector3 direction = transform.right;
-                direction.y = 0;
-                direction.Normalize();
-
-                transform.Translate(direction * Time.deltaTime * panSpeed * dir, Space.World);
+                    transform.Translate(direction * Time.deltaTime * panSpeed * dir, Space.World);
+                }
             }
 
             // For Camera Rotation

@@ -27,15 +27,15 @@ public class SkillTreeScript : MonoBehaviour
 
     protected GridMovementController m_moveControl;
     protected Stats stats;
+    public ParticleSystem myTurn_ps;
 
     private void Awake()
     {
-        Setup();
-        
+        Setup();       
     }
     void Start()
     {
-
+        myTurn_ps = transform.Find("Effect").Find("myTurn").GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -48,6 +48,11 @@ public class SkillTreeScript : MonoBehaviour
     {
         numActions = maxActions;
         numMoves = maxMoves;
+        myTurn_ps.Play();
+    }
+    public void endTurn()
+    {
+        myTurn_ps.Stop();
     }
     void MoveClick()
     {

@@ -79,10 +79,10 @@ public class TurnOrder : MonoBehaviour
     void IconUpdate()
     {
         int oq_count = objQueue.Count;
-        for (int i = 0; i < oq_count; i++)
-        {
-            iconList[i].sprite = objQueue[i].GetComponent<Stats>().GetSprite();
-        }
+        //for (int i = 0; i < oq_count; i++)
+        //{
+        //    iconList[i].sprite = objQueue[i].GetComponent<Stats>().GetSprite();
+        //}
 
         for (int i = 0; i < iconList.Count; i++)
         {
