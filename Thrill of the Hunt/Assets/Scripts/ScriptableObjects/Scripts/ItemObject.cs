@@ -18,7 +18,8 @@ public enum Attributes
     Brain,
     Vigor
 }
-public abstract class ItemObject : ScriptableObject
+[CreateAssetMenu(fileName = "New Item", menuName = "Inventory System/Items/item")]
+public class ItemObject : ScriptableObject
 {
     public Sprite uiDisplay;
     public bool stackable;
@@ -65,7 +66,7 @@ public class Item
 
 
 [System.Serializable]
-public class ItemBuff
+public class ItemBuff : IModifiers
 {
     public Attributes attributes;
     public int value;
@@ -76,6 +77,11 @@ public class ItemBuff
         min = _min;
         max = _max;
         GenerateValue();
+    }
+
+    public void AddValue(ref int baseValue)
+    {
+        baseValue += value;
     }
 
     public void GenerateValue()

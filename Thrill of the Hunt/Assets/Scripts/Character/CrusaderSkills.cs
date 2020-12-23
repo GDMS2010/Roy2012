@@ -17,7 +17,7 @@ public class CrusaderSkills : SkillTreeScript
 
         ActionScript moveAction = gameObject.AddComponent(typeof(ActionScript)) as ActionScript;
         moveAction.action = new UnityEngine.Events.UnityEvent();
-        moveAction.action.AddListener(HolyCleave);
+        moveAction.action.AddListener(HolyCleaveClick);
         moveAction.actionImage = specialMove1Image;
         skills.Add(moveAction);
     }
@@ -44,6 +44,21 @@ public class CrusaderSkills : SkillTreeScript
     {
         GameObject target = tile.gmc.currentCell.occupiedObject;
         target.GetComponent<Stats>().hurt(stats.getDamage, Stats.DamageType.True);
+        numActions--;
+        GameManagerScript.SubtractAction();
+        return 0;
+    }
+
+    void HolyCleaveClick()
+    {
+        Clicker clicker = FindObjectOfType<Clicker>();
+        BoardGenerator.Cell cell = m_moveControl.currentCell;
+        clicker.setupClickBoard(cell, stats.getAttackRange, Clicker.TargetType.Enemy, true, HolyCleave);
+    }
+    protected int HolyCleave(ClickerTile tile)
+    {
+        GameObject target = tile.gmc.currentCell.occupiedObject;
+        target.GetComponent<Stats>().hurt(stats.getDamage * 2, Stats.DamageType.True);
         numActions--;
         GameManagerScript.SubtractAction();
         return 0;

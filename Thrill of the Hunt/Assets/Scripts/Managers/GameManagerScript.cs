@@ -39,11 +39,12 @@ public class GameManagerScript : MonoBehaviour
         else endUIController.gameObject.SetActive(false);
         clicker = FindObjectOfType<Clicker>();
         m_battleManager = gameObject.AddComponent<BattleManager>();
-        if (m_battleManager) Debug.LogError("Battle Manager Creation Failed");
+        if (!m_battleManager) Debug.LogError("Battle Manager Creation Failed");
     }
 
     private void Start()
     {
+        clicker = FindObjectOfType<Clicker>();
         curCharacter = turnOrder.GetCurrent().GetComponent<Stats>();
         if (!curCharacter) Debug.LogError("Failed to get stats component from current head of turn from TurnOrder script");
         UpdateUI();
@@ -65,7 +66,12 @@ public class GameManagerScript : MonoBehaviour
         curCharActions = skills.numActions + skills.numMoves;
         uiScript.SetupActions(skills);
         uiScript.SetTurnUI("Turn " + turnCounter);
+        if(!clicker) clicker = FindObjectOfType<Clicker>();
         clicker.CloseTiles();
+        if(curCharacter.tag == "Enemy")
+        {
+            curCharacter.gameObject.GetComponent<EnemyAIMaster>().NextTurn();
+        }
     }
 
     public void NextTurn()

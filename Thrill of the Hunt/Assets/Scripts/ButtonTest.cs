@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,8 +17,10 @@ public class ButtonTest : MonoBehaviour
 
     public void GoToScene()
     {
-
+#if UNITY_EDITOR 
+        UnityEditor.SceneManagement.EditorSceneManager.LoadScene(destinationSceneName);
+#else
         SceneManager.LoadScene(destinationSceneName);
-
+#endif
     }
 }
