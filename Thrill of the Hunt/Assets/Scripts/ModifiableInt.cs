@@ -60,4 +60,15 @@ public class ModifiableInt
         modifiers.Remove(_modifier);
         UpdateModifiedValue();
     }
+
+    public void AddBase()
+    {
+      //  modifiers.Add(_modifier);
+        UpdateModifiedValue();
+    }
+    public void RemoveBase(IModifiers _modifier)
+    {
+        modifiers.Remove(_modifier);
+        UpdateModifiedValue();
+    }
 }

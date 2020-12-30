@@ -1494,7 +1494,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fd345ac0991b7b148847ec80a917830a, type: 2}
+  equipment: {fileID: 11400000, guid: e2d20f7790fd8994d96bf30c979b6708, type: 2}
+  level:
+    EXP: 0
+    currLevel: 0
+    MAX_EXP: 0
+    MAX_LEVEL: 0
+  statPoint: 0
   speed: 50
+  attributes:
+  - type: 0
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 1
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 2
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 3
+    value:
+      baseValue: 0
+      modifiedValue: 0
+  - type: 4
+    value:
+      baseValue: 0
+      modifiedValue: 0
 --- !u!1001 &677329444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2445,6 +2473,12 @@ MonoBehaviour:
   action:
     m_PersistentCalls:
       m_Calls: []
+  _action:
+    m_PersistentCalls:
+      m_Calls: []
+  remainCooldown: 0
+  MaxCooldown: 0
+  damage: 0
 --- !u!1 &1480106863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2790,6 +2824,12 @@ MonoBehaviour:
   action:
     m_PersistentCalls:
       m_Calls: []
+  _action:
+    m_PersistentCalls:
+      m_Calls: []
+  remainCooldown: 0
+  MaxCooldown: 0
+  damage: 0
 --- !u!4 &1779665663
 Transform:
   m_ObjectHideFlags: 0

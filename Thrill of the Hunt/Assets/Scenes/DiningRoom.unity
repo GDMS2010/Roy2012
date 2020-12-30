@@ -986,6 +986,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9218377935294762359, guid: 1e711044cbc639d44aa004669771969e, type: 3}
   m_PrefabInstance: {fileID: 52318387}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &61049048 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2938262517823418778, guid: 92b1de8e86293e04798ed8306c17e3b5, type: 3}
+  m_PrefabInstance: {fileID: 922036146}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2590b52b06ef1244fb9f860f7547940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &70306958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2395,6 +2406,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 490335350711628747, guid: 0a7f51b5f4ba6294a889f661114da0d3, type: 3}
   m_PrefabInstance: {fileID: 117893377}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &119535179 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1289221818781808116, guid: f8fc55e41c9ce414ebe063176feebcdc, type: 3}
+  m_PrefabInstance: {fileID: 5127762688201870452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2590b52b06ef1244fb9f860f7547940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &124383706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5875,6 +5897,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &364210243 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6397316429473641774, guid: 157da83f2d52e114ebd638d9943f280a, type: 3}
+  m_PrefabInstance: {fileID: 584357025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2590b52b06ef1244fb9f860f7547940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &367069856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9404,6 +9437,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wildcard
       objectReference: {fileID: 0}
+    - target: {fileID: 6397316429473641774, guid: 157da83f2d52e114ebd638d9943f280a, type: 3}
+      propertyPath: equipment
+      value: 
+      objectReference: {fileID: 11400000, guid: 65c403993ad219040881300d32be8224, type: 2}
+    - target: {fileID: 6397316429473641774, guid: 157da83f2d52e114ebd638d9943f280a, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 11400000, guid: fd345ac0991b7b148847ec80a917830a, type: 2}
+    - target: {fileID: 6397316429473641774, guid: 157da83f2d52e114ebd638d9943f280a, type: 3}
+      propertyPath: leveling.stats
+      value: 
+      objectReference: {fileID: 364210243}
     - target: {fileID: 6397316429473641776, guid: 157da83f2d52e114ebd638d9943f280a, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -15187,6 +15232,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2938262517823418778, guid: 92b1de8e86293e04798ed8306c17e3b5, type: 3}
+      propertyPath: equipment
+      value: 
+      objectReference: {fileID: 11400000, guid: bfc6628029e253148bbff7c4d60f6be9, type: 2}
+    - target: {fileID: 2938262517823418778, guid: 92b1de8e86293e04798ed8306c17e3b5, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 11400000, guid: fd345ac0991b7b148847ec80a917830a, type: 2}
+    - target: {fileID: 2938262517823418778, guid: 92b1de8e86293e04798ed8306c17e3b5, type: 3}
+      propertyPath: leveling.stats
+      value: 
+      objectReference: {fileID: 61049048}
     - target: {fileID: 2938262517823418780, guid: 92b1de8e86293e04798ed8306c17e3b5, type: 3}
       propertyPath: equipment
       value: 
@@ -21100,6 +21157,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9144917434236459188, guid: 09853b7f062375a438e1fcc026b8e7ba, type: 3}
   m_PrefabInstance: {fileID: 1345525994}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1345681372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7640523519966206846, guid: ee244a269911c484c8d8e73f6fe58456, type: 3}
+  m_PrefabInstance: {fileID: 1476598213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2590b52b06ef1244fb9f860f7547940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1357789041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22590,6 +22658,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crusader
       objectReference: {fileID: 0}
+    - target: {fileID: 7640523519966206846, guid: ee244a269911c484c8d8e73f6fe58456, type: 3}
+      propertyPath: equipment
+      value: 
+      objectReference: {fileID: 11400000, guid: e2d20f7790fd8994d96bf30c979b6708, type: 2}
+    - target: {fileID: 7640523519966206846, guid: ee244a269911c484c8d8e73f6fe58456, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 11400000, guid: fd345ac0991b7b148847ec80a917830a, type: 2}
+    - target: {fileID: 7640523519966206846, guid: ee244a269911c484c8d8e73f6fe58456, type: 3}
+      propertyPath: leveling.stats
+      value: 
+      objectReference: {fileID: 1345681372}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee244a269911c484c8d8e73f6fe58456, type: 3}
 --- !u!1001 &1482572879
@@ -32465,6 +32545,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vigilante
       objectReference: {fileID: 0}
+    - target: {fileID: 1289221818781808116, guid: f8fc55e41c9ce414ebe063176feebcdc, type: 3}
+      propertyPath: equipment
+      value: 
+      objectReference: {fileID: 11400000, guid: 8aa5da73b50216d4db5af80a6e8fe595, type: 2}
+    - target: {fileID: 1289221818781808116, guid: f8fc55e41c9ce414ebe063176feebcdc, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 11400000, guid: fd345ac0991b7b148847ec80a917830a, type: 2}
+    - target: {fileID: 1289221818781808116, guid: f8fc55e41c9ce414ebe063176feebcdc, type: 3}
+      propertyPath: leveling.stats
+      value: 
+      objectReference: {fileID: 119535179}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8fc55e41c9ce414ebe063176feebcdc, type: 3}
 --- !u!1001 &5692900489680044153

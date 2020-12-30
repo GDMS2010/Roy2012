@@ -13,14 +13,21 @@ public class Stats : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] int attackRange;
     [SerializeField] int moveSpeed;
-    [SerializeField] int lv;
+    public int lv;
+
+    public Leveling leveling;
+    public int statpoint;
+    public Attribute[] attributes;
+
+    public InventoryObject inventory;
+    public InventoryObject equipment;
 
     [Header("Attributes")]
-    [SerializeField] int defense;
-    [SerializeField] int nimbleness;
-    [SerializeField] int brawn;
-    [SerializeField] int brain;
-    [SerializeField] int vigor;
+    public int defense;
+    public int nimbleness;
+    public int brawn;
+    public int brain;
+    public int vigor;
     public int initiative;
 
     [Header("EnemyOnly")]
@@ -53,6 +60,13 @@ public class Stats : MonoBehaviour
         maxHealth = vigor * 3;
         currHealth = maxHealth;
         moveSpeed = nimbleness;
+        leveling = new Leveling(1, OnLevelUp);
+
+        for (int i = 0; i < equipment.GetSlots.Length; i++)
+        {
+            equipment.GetSlots[i].OnBeforeUpdate += OnBeforeSlotUpdate;
+            equipment.GetSlots[i].OnAfterUpdate += OnAfterSlotUpdate;
+        }
     }
 
     public Sprite GetSprite()
@@ -123,8 +137,71 @@ public class Stats : MonoBehaviour
         vigor += data.vigor;
     }
 
+    public void AttributeModified(Attribute attribute)
+    {
+        Debug.Log(string.Concat(attribute.type, "was updated! Value is now ", attribute.value.ModifiedValue));
+    }
+
+    public void OnBeforeSlotUpdate(InventorySlot _slot)
+    {
+        if (_slot.ItemObject == null)
+            return;
+        switch (_slot.parent.inventory.type)
+        {
+            case InterfaceType.Inventory:
+                break;
+            case InterfaceType.Equipment:
+                print(string.Concat("removed ", _slot.ItemObject, " on ", _slot.parent.inventory.type, ", Allowed Items: ", string.Join(", ", _slot.AllowedItems)));
+
+                for (int i = 0; i < _slot.item.buffs.Length; i++)
+                {
+                    for (int j = 0; j < attributes.Length; j++)
+                    {
+                        if (attributes[j].type == _slot.item.buffs[i].attributes)
+                        {
+                            attributes[j].value.RemoveModifier(_slot.item.buffs[i]);
+                        }
+                    }
+                }
+                break;
+            case InterfaceType.Chest:
+                break;
+
+            default:
+                break;
+        }
+    }
+    public void OnAfterSlotUpdate(InventorySlot _slot)
+    {
+        if (_slot.ItemObject == null)
+            return;
+        switch (_slot.parent.inventory.type)
+        {
+            case InterfaceType.Inventory:
+                break;
+            case InterfaceType.Equipment:
+                print(string.Concat("placed ", _slot.ItemObject, " on ", _slot.parent.inventory.type, ", Allowed Items: ", string.Join(", ", _slot.AllowedItems)));
+                for (int i = 0; i < _slot.item.buffs.Length; i++)
+                {
+                    for (int j = 0; j < attributes.Length; j++)
+                    {
+                        if (attributes[j].type == _slot.item.buffs[i].attributes)
+                        {
+                            attributes[j].value.AddModifier(_slot.item.buffs[i]);
+                        }
+                    }
+                }
+                break;
+            case InterfaceType.Chest:
+                break;
+
+            default:
+                break;
+        }
+    }
     public class statsData
     {
+
         public int maxHP { get; set; }
         public int damage { get; set; }
         public int attackRange { get; set; }
@@ -135,6 +212,36 @@ public class Stats : MonoBehaviour
         public int brawn { get; set; }
         public int brain { get; set; }
         public int vigor { get; set; }
+    }
+
+    public class Attribute
+    {
+        [System.NonSerialized]
+        public Stats parent;
+        public Attributes type;
+        public ModifiableInt value;
+
+        public void SetParent(Stats _parent)
+        {
+            parent = _parent;
+            value = new ModifiableInt(AttributeModified);
+        }
+        public void AttributeModified()
+        {
+            parent.AttributeModified(this);
+        }
+    }
+
+
+    public void OnLevelUp()
+    {
+        defense += 2;
+        nimbleness += 2;
+        brawn += 2;
+        brain += 2;
+        vigor += 2;
+        lv = leveling.currLevel;
+        statpoint++;
     }
 
     #endregion

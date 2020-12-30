@@ -13,6 +13,8 @@ public class Leveling
     public int MAX_EXP;
     public int MAX_LEVEL = 50;
 
+    public Stats stats;
+
   public Leveling(int level, Action OnLevUp)
     {
         MAX_EXP = GetXPForLevel(MAX_LEVEL);
@@ -100,5 +102,9 @@ public class Leveling
             }
         }
         return false;
+    }
+    public void IncreaseStats()
+    {
+
     }
 }

@@ -121,7 +121,7 @@ public class TestPlayer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            level.AddExp(100);
+            level.AddExp(level.GetXPForLevel(level.currLevel));
         }
 
         float hAxis = Input.GetAxis("Horizontal");
