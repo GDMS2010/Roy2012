@@ -13,7 +13,6 @@ public class Leveling
     public int MAX_EXP;
     public int MAX_LEVEL = 50;
 
-    public Stats stats;
 
   public Leveling(int level, Action OnLevUp)
     {
